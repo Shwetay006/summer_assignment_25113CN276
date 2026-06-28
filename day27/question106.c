@@ -1,0 +1,135 @@
+#include <stdio.h>
+
+struct Employee
+{
+    int id;
+    char name[50];
+    float salary;
+};
+
+int main()
+{
+    struct Employee emp[100];
+    int n = 0, choice, id, i, j, found;
+
+    while (1)
+    {
+        printf("\n===== EMPLOYEE MANAGEMENT SYSTEM =====\n");
+        printf("1. Add Employee\n");
+        printf("2. Display Employees\n");
+        printf("3. Search Employee\n");
+        printf("4. Delete Employee\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+        case 1:
+            printf("\nEnter Employee ID: ");
+            scanf("%d", &emp[n].id);
+
+            printf("Enter Employee Name: ");
+            scanf(" %[^\n]", emp[n].name);
+
+            printf("Enter Salary: ");
+            scanf("%f", &emp[n].salary);
+
+            n++;
+            printf("Employee added successfully!\n");
+            break;
+
+        case 2:
+            if (n == 0)
+            {
+                printf("\nNo employee records found.\n");
+            }
+            else
+            {
+                printf("\nEmployee Records\n");
+                printf("----------------------------------------\n");
+                printf("ID\tName\t\tSalary\n");
+                printf("----------------------------------------\n");
+
+                for (i = 0; i < n; i++)
+                {
+                    printf("%d\t%s\t\t%.2f\n",
+                           emp[i].id,
+                           emp[i].name,
+                           emp[i].salary);
+                }
+            }
+            break;
+
+        case 3:
+            if (n == 0)
+            {
+                printf("\nNo employee records available.\n");
+                break;
+            }
+
+            printf("\nEnter Employee ID to Search: ");
+            scanf("%d", &id);
+
+            found = 0;
+            for (i = 0; i < n; i++)
+            {
+                if (emp[i].id == id)
+                {
+                    printf("\nEmployee Found!\n");
+                    printf("ID     : %d\n", emp[i].id);
+                    printf("Name   : %s\n", emp[i].name);
+                    printf("Salary : %.2f\n", emp[i].salary);
+                    found = 1;
+                    break;
+                }
+            }
+
+            if (!found)
+                printf("Employee not found.\n");
+
+            break;
+
+        case 4:
+            if (n == 0)
+            {
+                printf("\nNo employee records available.\n");
+                break;
+            }
+
+            printf("\nEnter Employee ID to Delete: ");
+            scanf("%d", &id);
+
+            found = 0;
+            for (i = 0; i < n; i++)
+            {
+                if (emp[i].id == id)
+                {
+                    for (j = i; j < n - 1; j++)
+                    {
+                        emp[j] = emp[j + 1];
+                    }
+
+                    n--;
+                    found = 1;
+                    printf("Employee deleted successfully!\n");
+                    break;
+                }
+            }
+
+            if (!found)
+                printf("Employee not found.\n");
+
+            break;
+
+        case 5:
+            printf("Exiting program...\n");
+            return 0;
+
+        default:
+            printf("Invalid choice! Please try again.\n");
+        }
+    }
+
+    return 0;
+}
